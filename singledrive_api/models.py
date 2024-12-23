@@ -9,3 +9,7 @@ class File(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Pelicula(models.Model):
+    title = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=200, null=True, blank=True)

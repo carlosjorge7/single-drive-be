@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import File
-from .serializers import FileSerializer
+from .models import File, Pelicula
+from .serializers import FileSerializer, PeliculaSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import openai
@@ -37,3 +37,15 @@ class RecipeGeneratorView(APIView):
         
         recipe = response['choices'][0]['message']['content'].strip()
         return Response({'recipe': recipe})
+    
+
+class PeliculaListCreateView(generics.ListCreateAPIView):
+    serializer_class = PeliculaSerializer
+    queryset = Pelicula.objects.all()  
+   
+
+class PeliculaRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Pelicula.objects.all()
+    serializer_class = PeliculaSerializer
+
+

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from singledrive_api.api import FileListCreateView, FileRetrieveUpdateDeleteView, RecipeGeneratorView
+from singledrive_api.api import FileListCreateView, FileRetrieveUpdateDeleteView, RecipeGeneratorView, PeliculaListCreateView, PeliculaRetrieveUpdateDeleteView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -33,6 +33,16 @@ urlpatterns = [
         name="file-detail",
     ),
     path("generate-recipe/", RecipeGeneratorView.as_view(), name="generate-recipe"),
+     path(
+        "pelis/",
+        PeliculaListCreateView.as_view(),
+        name="pelis-list",
+    ),
+    path(
+        "pelis/<int:pk>/",
+        PeliculaRetrieveUpdateDeleteView.as_view(),
+        name="peli-detail",
+    ),
 
 ]
 
