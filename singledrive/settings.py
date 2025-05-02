@@ -31,7 +31,15 @@ SECRET_KEY = 'django-insecure-gh&9v@2k$2j7@ilsl_t7&%obiw)r^_s9v$unfnopfq9h032&qg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "192.168.1.129",  # IP de tu Raspberry (ajústala si cambia)
+    "192.168.1.133",
+    "192.168.194.2",
+    "192.168.194.38",
+]
+
 
 
 # Application definition
