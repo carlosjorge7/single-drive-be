@@ -1,5 +1,4 @@
 venv/
-
 media/
 
 *.pyc
@@ -7,4 +6,4 @@ __pycache__/
 
 .env
 
-db.sqlite
+db.sqlite3
