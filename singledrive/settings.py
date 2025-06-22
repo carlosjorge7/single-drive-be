@@ -35,11 +35,18 @@ ALLOWED_HOSTS = [
    "*"
 ]
 
+JAZZMIN_SETTINGS = {
+    "site_title": "Server File",
+    "site_header": "",
+    "welcome_sign": "Bienvenido al panel de gestión",
+    "copyright": "© Carlos",
+}
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
