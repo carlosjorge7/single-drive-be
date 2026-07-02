@@ -16,3 +16,5 @@ __pycache__/
 *.db-wal
 
 .DS_Store
+
+db.sqilite3
