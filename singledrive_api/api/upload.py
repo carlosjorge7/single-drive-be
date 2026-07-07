@@ -9,25 +9,7 @@ from rest_framework.views import APIView
 
 from singledrive_api.models import DriveFile, Folder
 from singledrive_api.serializers.file import DriveFileDetailSerializer
-
-
-def detect_file_type(mime_type):
-    if not mime_type:
-        return DriveFile.FileType.OTHER
-    if mime_type.startswith('image/'):
-        return DriveFile.FileType.IMAGE
-    if mime_type.startswith('video/'):
-        return DriveFile.FileType.VIDEO
-    if mime_type.startswith('audio/'):
-        return DriveFile.FileType.AUDIO
-    if mime_type in (
-        'application/pdf', 'application/msword', 'text/plain',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    ):
-        return DriveFile.FileType.DOCUMENT
-    return DriveFile.FileType.OTHER
+from singledrive_api.utils import detect_file_type
 
 
 class FileUploadView(APIView):

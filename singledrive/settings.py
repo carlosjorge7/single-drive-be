@@ -68,10 +68,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'singledrive.wsgi.application'
 
+_DATA_DIR = Path(os.environ.get('DATA_DIR', str(BASE_DIR)))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': _DATA_DIR / 'db.sqlite3',
         'OPTIONS': {
             'timeout': 20,
             'init_command': 'PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;',
@@ -110,6 +112,7 @@ FILE_UPLOAD_HANDLERS = [
 DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024    # 50 MB for non-file form data
 FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024
 MAX_UPLOAD_SIZE = 20 * 1024 * 1024 * 1024         # 20 GB per file
+USER_STORAGE_QUOTA_BYTES = int(os.environ.get('USER_QUOTA_GB', '100')) * 1024 * 1024 * 1024
 
 # Extensions blocked on upload
 BLOCKED_EXTENSIONS = {
@@ -117,8 +120,8 @@ BLOCKED_EXTENSIONS = {
     '.dll', '.jar', '.apk', '.ipa', '.dmg', '.pkg',
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', str(BASE_DIR / 'media'))
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -141,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from huey import SqliteHuey
 HUEY = SqliteHuey(
     name='homedrive',
-    filename=str(BASE_DIR / 'huey.db'),
+    filename=str(_DATA_DIR / 'huey.db'),
     results=True,
     store_none=False,
     immediate=False,   # set True in tests to run tasks inline
