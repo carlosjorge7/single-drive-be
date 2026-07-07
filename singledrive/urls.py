@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from singledrive_api.api.auth import LoginView, LogoutView, MeView
+from singledrive_api.api.auth import LoginView, LogoutView, MeView, RegisterView
 from singledrive_api.api.files import DriveFileViewSet
 from singledrive_api.api.folders import FolderViewSet
 from singledrive_api.api.upload import FileUploadView
@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Auth
+    path('api/v1/auth/register/', RegisterView.as_view(), name='auth-register'),
     path('api/v1/auth/login/', LoginView.as_view(), name='auth-login'),
     path('api/v1/auth/logout/', LogoutView.as_view(), name='auth-logout'),
     path('api/v1/auth/refresh/', TokenRefreshView.as_view(), name='auth-refresh'),

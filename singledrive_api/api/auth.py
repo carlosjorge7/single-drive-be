@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 
-from singledrive_api.serializers.auth import LoginSerializer, UserSerializer
+from singledrive_api.serializers.auth import LoginSerializer, RegisterSerializer, UserSerializer
 
 
 class LoginView(APIView):
@@ -34,6 +34,21 @@ class LogoutView(APIView):
         except TokenError:
             pass
         return Response({'detail': 'Sesión cerrada correctamente.'})
+
+
+class RegisterView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+            'user': UserSerializer(user).data,
+        }, status=201)
 
 
 class MeView(APIView):
